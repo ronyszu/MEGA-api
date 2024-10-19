@@ -35,7 +35,8 @@ The goal of this project is to automate the process of migrating NFTs currently 
 
 ```bash
 git clone https://github.com/ronyszu/MEGA-api.git
-cd nfts-mega
+cd MEGA-api/mega-api
+
 ```
 
 ### **2. Install Dependencies**
