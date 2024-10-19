@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model NftsMega {
+  token_address         String?        @db.VarChar(255)
+  token_id              Int            @id @default(autoincrement())
+  amount                Int
+  token_hash            String?        @db.VarChar(255)
+  block_number          Int?
+  block_number_minted   Int?
+  contract_type         String?        @db.VarChar(100)
+  name                  String?        @db.VarChar(255)
+  symbol                String?        @db.VarChar(10)
+  token_uri             String?        @db.Text
+  metadata              Json?          @db.Json
+  last_token_uri_sync   DateTime?
+  last_metadata_sync    DateTime?
+  minter_address        String?        @db.VarChar(255)
+  owner_of              String?        @db.VarChar(255)
+  rarity_rank           Int?
+  rarity_percentage     Decimal?         @db.Decimal(5, 2)
+  rarity_label          String?         @db.VarChar(20)
+  solana_address        String?        @db.VarChar(100)
+}
+
