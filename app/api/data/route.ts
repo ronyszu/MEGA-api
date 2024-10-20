@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '../../../lib/prisma';
+import { prisma2 } from '../../../lib/prisma';
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 
  //ENDPOINT GET que recebe endereco EVM e devolve todas as NFTs associadas a ele
 export async function GET(request: Request) {
@@ -34,7 +36,10 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'Failed to fetch NFTs' }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
+
 }
 
 //ENDPOINT POST que recebe end EVM e end SOL, faz a query pra pegar a NFT do endereco EVM baseado  no Owner_of e atualiza com o endereco solana
@@ -68,5 +73,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error updating Solana address:', error);
     return NextResponse.json({ error: 'Failed to update Solana address' }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
